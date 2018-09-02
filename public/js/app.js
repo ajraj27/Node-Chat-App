@@ -20,11 +20,13 @@ const form=document.querySelector('.message-form');
 const input=document.querySelector('[name=message]');
 const list=document.querySelector('.message-list');
 
-form.addEventListener('submit',(e) => {
+form.addEventListener('submit',function(e){
   e.preventDefault();
 
   socket.emit('createMessage',{
     from:'user',
     text:input.value
   });
+
+   this.reset();
 })
