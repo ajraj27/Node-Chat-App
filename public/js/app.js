@@ -7,8 +7,24 @@ socket.on('connect',() => {
 
 socket.on('newMessage',(message)=> {
   console.log(message);
+  const newItem=document.createElement('li');
+  newItem.textContent=`${message.from}:${message.text}`;
+  list.appendChild(newItem);
 })
 
 socket.on('disconnect',() => {
   console.log('Disconnected from user');
+})
+
+const form=document.querySelector('.message-form');
+const input=document.querySelector('[name=message]');
+const list=document.querySelector('.message-list');
+
+form.addEventListener('submit',(e) => {
+  e.preventDefault();
+
+  socket.emit('createMessage',{
+    from:'user',
+    text:input.value
+  });
 })
