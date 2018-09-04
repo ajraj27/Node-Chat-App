@@ -10,6 +10,17 @@ socket.on('newMessage',(message)=> {
   const newItem=document.createElement('li');
   newItem.textContent=`${message.from}:${message.text}`;
   list.appendChild(newItem);
+});
+
+socket.on('newLocationMessage',(message) => {
+  const newList=document.createElement('li');
+  const newAnchor=document.createElement('a');
+  newAnchor.textContent='My Current Location';
+  newAnchor.href=message.url;
+  newAnchor.target="_blank";
+  newList.textContent=`${message.from}: `;
+  newList.append(newAnchor);
+  list.append(newList);
 })
 
 socket.on('disconnect',() => {
@@ -19,6 +30,7 @@ socket.on('disconnect',() => {
 const form=document.querySelector('.message-form');
 const input=document.querySelector('[name=message]');
 const list=document.querySelector('.message-list');
+const position=document.querySelector('.send-location');
 
 form.addEventListener('submit',function(e){
   e.preventDefault();
@@ -29,4 +41,21 @@ form.addEventListener('submit',function(e){
   });
 
    this.reset();
-})
+});
+
+position.addEventListener('click',() => {
+
+    if(!navigator.geolocation){
+      alert('Gelocation not supported in your browser!!');
+    }
+
+    navigator.geolocation.getCurrentPosition((position) => {
+        socket.emit('createLocationMessage',{
+          'latitude':position.coords.latitude,
+          'longitude':position.coords.longitude
+        });
+    },() => {
+      alert('Unable to fetch location!!');
+    })
+
+});
