@@ -17,9 +17,6 @@ socket.on('newMessage',(message) => {
 
   list.appendChild(newHtml);
 
-  // const newItem=document.createElement('li');
-  // newItem.textContent=`${message.from} ${formattedTime}:${message.text}`;
-  // list.appendChild(newItem);
 });
 
 socket.on('newLocationMessage',(message) => {

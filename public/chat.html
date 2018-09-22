@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Chat | ChatApp</title>
+  </head>
+  <body>
+    <p>Hello! Welcome to Chat App.</p>
+
+    <ol class='message-list'></ol>
+
+    <form class="message-form">
+      <input type="text" name="message" placeholder="Message" autofocus autocomplete="off">
+      <button type="submit" name="button">Submit</button>
+    </form>
+
+    <button class="send-location" >Send location</button>
+
+    <script id='message-template' type='text/template'>
+    <li class='message'>
+      <div class='message_title'>
+        <h4>{{from}}</h4>
+        <span>{{createdAt}}</span>
+      </div>
+      <div class='message_body'>
+        <p>{{text}}</p>
+      </div>
+    </li>
+    </script>
+
+    <script id='location-message-template' type='text/template'>
+    <li class='message'>
+      <div class='message_title'>
+        <h4>{{from}}</h4>
+        <span>{{createdAt}}</span>
+      </div>
+      <div class='message_body'>
+        <p><a href="{{url}}" target="_blank">My Current Location</a></p>
+      </div>
+    </li>
+    </script>
+
+    <script src='/socket.io/socket.io.js'></script>
+    <script src='/js/libs/moment.js'></script>
+    <script src='/js/libs/mustache.js'></script>
+    <script src='/js/chat.js'></script>
+  </body>
+</html>
