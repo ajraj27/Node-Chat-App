@@ -5,22 +5,35 @@ socket.on('connect',() => {
 
 });
 
-socket.on('newMessage',(message)=> {
-  console.log(message);
-  const newItem=document.createElement('li');
-  newItem.textContent=`${message.from}:${message.text}`;
-  list.appendChild(newItem);
+socket.on('newMessage',(message) => {
+  const formattedTime=moment(message.createdAt).format('h:mm a');
+  const template=document.querySelector('#message-template').innerHTML;
+  const html=Mustache.render(template,{
+    text:message.text,
+    from:message.from,
+    createdAt:formattedTime
+  }); //return a string which has to be converted to node to be able to append in an unordered list
+  const newHtml = document.createRange().createContextualFragment(html); //to convert a string to DOM node
+
+  list.appendChild(newHtml);
+
+  // const newItem=document.createElement('li');
+  // newItem.textContent=`${message.from} ${formattedTime}:${message.text}`;
+  // list.appendChild(newItem);
 });
 
 socket.on('newLocationMessage',(message) => {
-  const newList=document.createElement('li');
-  const newAnchor=document.createElement('a');
-  newAnchor.textContent='My Current Location';
-  newAnchor.href=message.url;
-  newAnchor.target="_blank";
-  newList.textContent=`${message.from}: `;
-  newList.append(newAnchor);
-  list.append(newList);
+  const formattedTime=moment(message.createdAt).format('h:mm a');
+  const template=document.querySelector('#location-message-template').innerHTML;
+  const html=Mustache.render(template,{
+    url:message.url,
+    from:message.from,
+    createdAt:formattedTime
+  }); //return a string which has to be converted to node to be able to append in an unordered list
+  const newHtml = document.createRange().createContextualFragment(html); //to convert a string to DOM node
+
+  list.appendChild(newHtml);
+
 })
 
 socket.on('disconnect',() => {
