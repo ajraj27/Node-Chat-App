@@ -45,6 +45,13 @@ socket.on('newLocationMessage',(message) => {
 
 })
 
+socket.on('updateUserList',(users) => {
+  let html=users.map((user) => `<li>${user}</li>`).join('');
+  html=`<ol>${html}</ol>`;
+
+  people_list.innerHTML=html;
+})
+
 socket.on('disconnect',() => {
   console.log('Disconnected from user');
 })
@@ -53,12 +60,12 @@ const form=document.querySelector('.message-form');
 const input=document.querySelector('[name=message]');
 const list=document.querySelector('.message-list');
 const positionBtn=document.querySelector('.send-location');
+const people_list=document.querySelector('.people-list');
 
 form.addEventListener('submit',function(e){
   e.preventDefault();
 
   socket.emit('createMessage',{
-    from:'user',
     text:input.value
   });
 

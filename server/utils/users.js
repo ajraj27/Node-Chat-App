@@ -10,7 +10,7 @@ class Users{
   }
 
   removeUser(id){
-    const user=getUser(id);
+    const user=this.getUser(id);
 
     if(user){
       this.users=this.users.filter((user) => user.id!==id)
