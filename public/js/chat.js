@@ -56,14 +56,20 @@ socket.on('disconnect',() => {
   console.log('Disconnected from user');
 })
 
-const form=document.querySelector('.message-form');
+const form=document.querySelector('.message-submit');
 const input=document.querySelector('[name=message]');
 const list=document.querySelector('.message-list');
 const positionBtn=document.querySelector('.send-location');
 const people_list=document.querySelector('.people-list');
+const btnCollapse=document.querySelector('#sidebar-collapse');
+const sidebar=document.querySelector('.sidebar');
+
+btnCollapse.addEventListener('click',() => {
+  sidebar.classList.toggle('active');
+});
 
 form.addEventListener('submit',function(e){
-  e.preventDefault();
+  if (e.target instanceof HTMLAnchorElement) e.preventDefault();
 
   socket.emit('createMessage',{
     text:input.value
