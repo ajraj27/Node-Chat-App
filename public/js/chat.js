@@ -3,6 +3,8 @@ const socket=io();
 
 socket.on('connect',() => {
   const params=jQuery.deparam(window.location.search);
+  params.name=params.name.toLowerCase();
+  params.room=params.room.toLowerCase();
 
   socket.emit('join',params,(err) => {
     if(err){
@@ -69,7 +71,7 @@ btnCollapse.addEventListener('click',() => {
 });
 
 form.addEventListener('submit',function(e){
-  if (e.target instanceof HTMLAnchorElement) e.preventDefault();
+   e.preventDefault();
 
   socket.emit('createMessage',{
     text:input.value

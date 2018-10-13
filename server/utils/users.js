@@ -10,7 +10,7 @@ class Users{
   }
 
   removeUser(id){
-    const user=this.getUser(id);
+    const user=this.getUserById(id);
 
     if(user){
       this.users=this.users.filter((user) => user.id!==id)
@@ -19,10 +19,14 @@ class Users{
     return user;
   }
 
-  getUser(id){
-    return this.users.filter((user) => user.id==id)[0];
-
+  getUserByName(name,room){
+    return this.users.filter((user) => user.name===name && user.room===room)[0];
   }
+
+  getUserById(id){
+    return this.users.filter((user) => user.id===id)[0];
+  }
+
 
   getUserList(room){
     const users=this.users.filter((user) => user.room==room);

@@ -23,6 +23,10 @@ io.on('connection',(socket) => {
       return callback("Name and room are required.")
     }
 
+    if(users.getUserByName(params.name,params.room)){
+      return callback("Same username already exists!!");
+    }
+
     socket.join(params.room);
     users.removeUser(socket.id);
     users.addUser(socket.id,params.name,params.room);
@@ -44,7 +48,7 @@ io.on('connection',(socket) => {
 
   socket.on('createLocationMessage',(location) => {
 
-    const user=users.getUser(socket.id);
+    const user=users.getUserById(socket.id);
 
     if(user){
       io.to(user.room).emit('newLocationMessage',generateLocationMessage(user.name,location.latitude,location.longitude));
