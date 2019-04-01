@@ -72,6 +72,7 @@ btnCollapse.addEventListener('click',() => {
 
 form.addEventListener('submit',function(e){
    e.preventDefault();
+   console.log("submitted");
 
   socket.emit('createMessage',{
     text:input.value
