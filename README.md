@@ -1,3 +1,3 @@
 # Node-Chat-App
-A NodeJs based chat app to perform client to server based  communication and vice-versa using Socket.io.
+A NodeJs based chat app to perform client to server based  communication and vice-versa using Socket.io.</br>
 [Active link](https://socket-node-chat-app.herokuapp.com/)
